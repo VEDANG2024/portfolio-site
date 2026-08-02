@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MotionConfig } from "motion/react";
 
 import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
@@ -22,7 +23,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      </body>
     </html>
   );
 }

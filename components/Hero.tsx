@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { Download, Mail } from "lucide-react";
 import { profile } from "@/lib/content";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons/BrandIcons";
@@ -11,14 +11,15 @@ const container = {
   hidden: {},
   show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
 };
+// Never drops below 60% opacity — worst case (animation doesn't run
+// for some reason) the hero text is still fully readable, just
+// slightly offset, rather than invisible.
 const item = {
-  hidden: { opacity: 0, y: 18 },
+  hidden: { opacity: 0.6, y: 14 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 };
 
 export default function Hero() {
-  const reduce = useReducedMotion();
-
   return (
     <section
       id="top"
@@ -36,33 +37,20 @@ export default function Hero() {
         style={{ background: "radial-gradient(circle, var(--accent-soft), transparent 70%)" }}
       />
 
-      <motion.div
-        variants={reduce ? undefined : container}
-        initial={reduce ? undefined : "hidden"}
-        animate={reduce ? undefined : "show"}
-      >
-        <motion.p
-          variants={reduce ? undefined : item}
-          className="text-sm text-accent font-medium tracking-wide uppercase mb-4"
-        >
+      <motion.div variants={container} initial="hidden" animate="show">
+        <motion.p variants={item} className="text-sm text-accent font-medium tracking-wide uppercase mb-4">
           {profile.location}
         </motion.p>
-        <motion.h1
-          variants={reduce ? undefined : item}
-          className="font-display text-4xl sm:text-5xl leading-tight mb-4"
-        >
+        <motion.h1 variants={item} className="font-display text-4xl sm:text-5xl leading-tight mb-4">
           {profile.name}
         </motion.h1>
-        <motion.p variants={reduce ? undefined : item} className="text-lg text-text-secondary mb-2">
+        <motion.p variants={item} className="text-lg text-text-secondary mb-2">
           {profile.title}
         </motion.p>
-        <motion.p
-          variants={reduce ? undefined : item}
-          className="text-text-secondary max-w-xl mb-8"
-        >
+        <motion.p variants={item} className="text-text-secondary max-w-xl mb-8">
           {profile.tagline}
         </motion.p>
-        <motion.div variants={reduce ? undefined : item} className="flex flex-wrap gap-3">
+        <motion.div variants={item} className="flex flex-wrap gap-3">
           <a
             href={profile.resumeFile}
             download

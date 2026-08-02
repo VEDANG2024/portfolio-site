@@ -1,11 +1,14 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 
 const EASE = [0.21, 0.47, 0.32, 0.98] as const;
 
-// Fades + slides content up as it scrolls into view, once. Respects
-// prefers-reduced-motion by skipping the motion entirely.
+// Fades + slides content up as it scrolls into view, once. Reduced-motion
+// handling is global (see MotionConfig in layout.tsx) rather than
+// per-component — and the "hidden" state never drops below 40% opacity,
+// so even if the reveal animation somehow never fires, the content is
+// still fully readable rather than invisible.
 export default function Reveal({
   children,
   delay = 0,
@@ -15,16 +18,10 @@ export default function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
-
-  if (reduce) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0.4, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, delay, ease: EASE }}
