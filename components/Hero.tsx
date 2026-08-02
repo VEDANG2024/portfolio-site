@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Download, Mail } from "lucide-react";
-import { profile } from "@/lib/content";
+import { ChevronDown, Download, Mail } from "lucide-react";
+import { profile, roles } from "@/lib/content";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons/BrandIcons";
+import TypewriterText from "@/components/TypewriterText";
 
 const EASE = [0.21, 0.47, 0.32, 0.98] as const;
 
@@ -23,7 +24,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative max-w-4xl mx-auto px-4 sm:px-6 pt-16 pb-14 overflow-hidden"
+      className="relative max-w-4xl mx-auto px-4 sm:px-6 pt-16 pb-20 overflow-hidden min-h-[90vh] flex flex-col justify-center"
     >
       {/* Decorative background — purely cosmetic, sits behind the text */}
       <div
@@ -38,14 +39,25 @@ export default function Hero() {
       />
 
       <motion.div variants={container} initial="hidden" animate="show">
+        <motion.div
+          variants={item}
+          className="inline-flex items-center gap-2 text-xs bg-accent-soft text-accent rounded-full px-3 py-1.5 mb-6"
+        >
+          <span className="relative flex w-2 h-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-60" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+          </span>
+          {profile.availability}
+        </motion.div>
+
         <motion.p variants={item} className="text-sm text-accent font-medium tracking-wide uppercase mb-4">
           {profile.location}
         </motion.p>
         <motion.h1 variants={item} className="font-display text-4xl sm:text-5xl leading-tight mb-4">
           {profile.name}
         </motion.h1>
-        <motion.p variants={item} className="text-lg text-text-secondary mb-2">
-          {profile.title}
+        <motion.p variants={item} className="text-lg text-text-secondary mb-2 h-7">
+          <TypewriterText phrases={roles} />
         </motion.p>
         <motion.p variants={item} className="text-text-secondary max-w-xl mb-8">
           {profile.tagline}
@@ -86,6 +98,14 @@ export default function Hero() {
           </a>
         </motion.div>
       </motion.div>
+
+      <a
+        href="#about"
+        aria-label="Scroll down"
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 text-text-muted hover:text-accent transition-colors animate-bounce"
+      >
+        <ChevronDown className="w-5 h-5" strokeWidth={1.75} />
+      </a>
     </section>
   );
 }

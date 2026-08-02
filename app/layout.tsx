@@ -11,9 +11,24 @@ import "@fontsource/source-serif-4/700.css";
 import "./globals.css";
 import { profile } from "@/lib/content";
 
+const siteUrl = "https://vedangtrivedi-portfolio.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: `${profile.name} — ${profile.title}`,
   description: profile.tagline,
+  openGraph: {
+    title: `${profile.name} — ${profile.title}`,
+    description: profile.tagline,
+    url: siteUrl,
+    siteName: profile.name,
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: `${profile.name} — ${profile.title}`,
+    description: profile.tagline,
+  },
 };
 
 export default function RootLayout({

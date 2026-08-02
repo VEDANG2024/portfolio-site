@@ -11,6 +11,26 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/vedang-trivedi-0389a91b9",
   github: "https://www.github.com/VEDANG2024",
   resumeFile: "/resume.pdf",
+  availability: "Open to internships & opportunities",
+};
+
+export const roles = [
+  "Software Systems Student",
+  "Distributed Systems Enthusiast",
+  "Applied ML Explorer",
+  "Automation Builder",
+];
+
+export const aboutBlurb =
+  "Currently pursuing an M.Tech in Software Systems, with hands-on experience spanning distributed file systems, query optimization, and applied ML — alongside real-world internship work in business systems automation.";
+
+export const aboutJson = {
+  name: "Vedang Trivedi",
+  role: "M.Tech ICT (Software Systems)",
+  location: "Ahmedabad, India",
+  interests: ["Distributed Systems", "Databases", "Applied ML", "Automation"],
+  currently_learning: "Advanced distributed systems (M.Tech coursework)",
+  fun_fact: "Won an inter-college chess tournament",
 };
 
 export const education = [
