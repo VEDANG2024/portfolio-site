@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Mail } from "lucide-react";
 import { profile } from "@/lib/content";
+import Reveal from "@/components/Reveal";
+import SectionHeading from "@/components/SectionHeading";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -33,69 +36,85 @@ export default function Contact() {
 
   return (
     <section id="contact" className="max-w-4xl mx-auto px-4 sm:px-6 py-14 border-t border-border-soft">
-      <h2 className="font-display text-2xl mb-3">Get in touch</h2>
-      <p className="text-sm text-text-secondary mb-8 flex items-center gap-2">
-        <Mail className="w-4 h-4 text-accent" strokeWidth={1.75} />
-        Or email me directly at{" "}
-        <a href={`mailto:${profile.email}`} className="text-accent hover:underline">
-          {profile.email}
-        </a>
-      </p>
+      <SectionHeading index="07" title="Get in touch" />
+      <Reveal>
+        <p className="text-sm text-text-secondary mb-8 flex items-center gap-2">
+          <Mail className="w-4 h-4 text-accent" strokeWidth={1.75} />
+          Or email me directly at{" "}
+          <a href={`mailto:${profile.email}`} className="text-accent hover:underline">
+            {profile.email}
+          </a>
+        </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md">
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="name" className="text-sm text-text-secondary">
-            Name
-          </label>
-          <input
-            id="name"
-            name="name"
-            required
-            className="bg-bg-elevated border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-accent"
-          />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="email" className="text-sm text-text-secondary">
-            Email
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-            className="bg-bg-elevated border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-accent"
-          />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <label htmlFor="message" className="text-sm text-text-secondary">
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            required
-            rows={4}
-            className="bg-bg-elevated border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-accent resize-y"
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-md">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="name" className="text-sm text-text-secondary">
+              Name
+            </label>
+            <input
+              id="name"
+              name="name"
+              required
+              className="bg-bg-elevated border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-accent transition-colors"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="email" className="text-sm text-text-secondary">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              className="bg-bg-elevated border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-accent transition-colors"
+            />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="message" className="text-sm text-text-secondary">
+              Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows={4}
+              className="bg-bg-elevated border border-border rounded-lg px-3 py-2 text-sm outline-none focus:border-accent resize-y transition-colors"
+            />
+          </div>
 
-        <button
-          type="submit"
-          disabled={status === "sending"}
-          className="self-start bg-accent hover:bg-accent-hover text-on-accent font-medium rounded-lg px-5 py-2.5 text-sm transition-colors disabled:opacity-60"
-        >
-          {status === "sending" ? "Sending…" : "Send message"}
-        </button>
+          <button
+            type="submit"
+            disabled={status === "sending"}
+            className="self-start bg-accent hover:bg-accent-hover text-on-accent font-medium rounded-lg px-5 py-2.5 text-sm transition-all hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
+          >
+            {status === "sending" ? "Sending…" : "Send message"}
+          </button>
 
-        {status === "sent" && (
-          <p className="text-sm text-accent">Thanks — your message is on its way.</p>
-        )}
-        {status === "error" && (
-          <p className="text-sm text-red-600">
-            Something went wrong — try emailing directly instead.
-          </p>
-        )}
-      </form>
+          <AnimatePresence mode="wait">
+            {status === "sent" && (
+              <motion.p
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="text-sm text-accent"
+              >
+                Thanks — your message is on its way.
+              </motion.p>
+            )}
+            {status === "error" && (
+              <motion.p
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="text-sm text-red-600"
+              >
+                Something went wrong — try emailing directly instead.
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </form>
+      </Reveal>
     </section>
   );
 }

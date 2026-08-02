@@ -1,5 +1,9 @@
-import { Download, ExternalLink } from "lucide-react";
+"use client";
+
+import { useEffect, useState } from "react";
+import { Download } from "lucide-react";
 import { profile } from "@/lib/content";
+import { GitHubIcon, LinkedInIcon } from "@/components/icons/BrandIcons";
 
 const LINKS = [
   { href: "#skills", label: "Skills" },
@@ -10,6 +14,28 @@ const LINKS = [
 ];
 
 export default function Nav() {
+  const [active, setActive] = useState<string>("");
+
+  useEffect(() => {
+    const sections = LINKS.map((l) => document.getElementById(l.href.slice(1))).filter(
+      (el): el is HTMLElement => el !== null
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(`#${entry.target.id}`);
+          }
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <header className="sticky top-0 z-10 bg-bg/90 backdrop-blur border-b border-border">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3">
@@ -21,9 +47,14 @@ export default function Nav() {
             <a
               key={link.href}
               href={link.href}
-              className="hidden sm:inline hover:text-text-primary transition-colors"
+              className={`hidden sm:inline transition-colors relative ${
+                active === link.href ? "text-accent" : "hover:text-text-primary"
+              }`}
             >
               {link.label}
+              {active === link.href && (
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-accent" />
+              )}
             </a>
           ))}
           <a
@@ -33,7 +64,7 @@ export default function Nav() {
             title="GitHub"
             className="text-text-muted hover:text-text-primary transition-colors"
           >
-            <ExternalLink className="w-4 h-4" strokeWidth={1.75} />
+            <GitHubIcon className="w-4 h-4" />
           </a>
           <a
             href={profile.linkedin}
@@ -42,7 +73,7 @@ export default function Nav() {
             title="LinkedIn"
             className="text-text-muted hover:text-text-primary transition-colors"
           >
-            <ExternalLink className="w-4 h-4" strokeWidth={1.75} />
+            <LinkedInIcon className="w-4 h-4" />
           </a>
           <a
             href={profile.resumeFile}

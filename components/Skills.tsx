@@ -1,12 +1,14 @@
+import Reveal from "@/components/Reveal";
+import SectionHeading from "@/components/SectionHeading";
 import { skillGroups, softSkills } from "@/lib/content";
 
 export default function Skills() {
   return (
     <section id="skills" className="max-w-4xl mx-auto px-4 sm:px-6 py-14 border-t border-border-soft">
-      <h2 className="font-display text-2xl mb-8">Skills</h2>
+      <SectionHeading index="01" title="Skills" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-        {skillGroups.map((group) => (
-          <div key={group.category}>
+        {skillGroups.map((group, i) => (
+          <Reveal key={group.category} delay={i * 0.05}>
             <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-3">
               {group.category}
             </h3>
@@ -14,16 +16,16 @@ export default function Skills() {
               {group.items.map((item) => (
                 <span
                   key={item}
-                  className="text-sm bg-accent-soft text-accent rounded-full px-3 py-1"
+                  className="text-sm bg-accent-soft text-accent rounded-full px-3 py-1 transition-transform hover:scale-105"
                 >
                   {item}
                 </span>
               ))}
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
-      <div>
+      <Reveal delay={0.15}>
         <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-3">
           Soft Skills
         </h3>
@@ -31,13 +33,13 @@ export default function Skills() {
           {softSkills.map((item) => (
             <span
               key={item}
-              className="text-sm border border-border text-text-secondary rounded-full px-3 py-1"
+              className="text-sm border border-border text-text-secondary rounded-full px-3 py-1 transition-transform hover:scale-105"
             >
               {item}
             </span>
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -67,3 +67,20 @@ html {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Slow-drifting decorative blobs behind the hero — purely cosmetic,
+   disabled entirely under prefers-reduced-motion above. */
+@keyframes drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.08); }
+}
+@keyframes drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-24px, 26px) scale(1.05); }
+}
+.blob-a {
+  animation: drift-a 16s ease-in-out infinite;
+}
+.blob-b {
+  animation: drift-b 20s ease-in-out infinite;
+}
