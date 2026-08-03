@@ -41,11 +41,11 @@ export default function Hero() {
       <motion.div variants={container} initial="hidden" animate="show">
         <motion.div
           variants={item}
-          className="inline-flex items-center gap-2 text-xs bg-accent-soft text-accent rounded-full px-3 py-1.5 mb-6"
+          className="inline-flex items-center gap-2 text-xs bg-accent-2-soft text-accent-2 rounded-full px-3 py-1.5 mb-6"
         >
           <span className="relative flex w-2 h-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-60" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-2 opacity-60" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-2" />
           </span>
           {profile.availability}
         </motion.div>

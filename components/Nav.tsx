@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Download } from "lucide-react";
 import { profile } from "@/lib/content";
 import { GitHubIcon, LinkedInIcon } from "@/components/icons/BrandIcons";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const LINKS = [
   { href: "#about", label: "About" },
@@ -76,6 +77,7 @@ export default function Nav() {
           >
             <LinkedInIcon className="w-4 h-4" />
           </a>
+          <ThemeToggle />
           <a
             href={profile.resumeFile}
             download
