@@ -15,10 +15,10 @@ export const profile = {
 };
 
 export const roles = [
-  "Software Systems Student",
-  "Distributed Systems Enthusiast",
-  "Applied ML Explorer",
-  "Automation Builder",
+  "Software Systems and Automation",
+  "Operational Excellence",
+  "Change Management",
+  "Business Analyst",
 ];
 
 export const aboutBlurb =
